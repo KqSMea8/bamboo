@@ -1,8 +1,8 @@
 {
-  "name": "ant-design-pro",
-  "version": "2.2.1",
-  "description": "An out-of-box UI solution for enterprise applications",
-  "private": true,
+  "name": "bamboo",
+  "version": "0.0.1",
+  "description": "An out-of-box UI solution base on Antd.Pro",
+  "private": false,
   "scripts": {
     "start": "cross-env APP_TYPE=site umi dev",
     "start:no-mock": "cross-env MOCK=none umi dev",

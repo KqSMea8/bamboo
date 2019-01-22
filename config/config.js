@@ -5,6 +5,7 @@
  * @modify date 2019-01-20 15:02:52
  * @desc [umi config link:https://umijs.org/config/]
  */
+
 import os from 'os';
 import pageRoutes from './router.config';
 import webpackPlugin from './plugin.config';

@@ -5,6 +5,7 @@
  * @modify date 2019-01-20 15:02:52
  * @desc [Change theme plugin, floating on right side]
  */
+
 import MergeLessPlugin from 'antd-pro-merge-less';
 import AntDesignThemePlugin from 'antd-theme-webpack-plugin';
 import path from 'path';
