@@ -13,7 +13,7 @@ function getItem(key) {
   try {
     return JSON.parse(store.getItem(key)) || {};
   } catch (e) {
-    throw new Error('getItem Error:', e);
+    return {};
   }
 }
 
@@ -26,5 +26,9 @@ export function getIdentify() {
 }
 
 export function setIdentify(identify) {
-  return setItem(IDENTIFY, JSON.stringify(identify));
+  return setItem(IDENTIFY, identify);
+}
+
+export function unsetIdentify() {
+  return store.removeItem(IDENTIFY);
 }

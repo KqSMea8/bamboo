@@ -9,7 +9,7 @@ import { routerRedux } from 'dva/router';
 import { stringify } from 'qs';
 import { obtainToken, getFakeCaptcha, getPermits } from '@/services/api';
 import { setAuthority } from '@/utils/authority';
-import { setIdentify } from '@/utils/identify';
+import { setIdentify, unsetIdentify } from '@/utils/identify';
 import { getPageQuery } from '@/utils/utils';
 import { reloadAuthorized } from '@/utils/Authorized';
 
@@ -20,9 +20,9 @@ export default {
   },
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(obtainToken, payload);
+      const identify = yield call(obtainToken, payload);
       // Login successfully
-      if (!response.errcode && !response.errmsg && response.data) {
+      if (identify) {
         yield put({
           type: 'changeLoginStatus',
           payload: {
@@ -31,10 +31,10 @@ export default {
           },
         });
         // Save identify
-        setIdentify(response.data);
+        setIdentify(identify);
         // Get Pertmits for render router
-        const resPert = yield call(getPermits);
-        yield put({ type: 'global/setPermits', payload: resPert.data });
+        const permits = yield call(getPermits);
+        yield put({ type: 'global/setPermits', payload: permits });
         // Reload Authorized
         reloadAuthorized();
         // Redirect
@@ -69,6 +69,7 @@ export default {
           currentAuthority: 'guest',
         },
       });
+      unsetIdentify();
       reloadAuthorized();
       yield put(
         routerRedux.push({

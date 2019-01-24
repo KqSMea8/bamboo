@@ -11,15 +11,15 @@ export default {
   },
   effects: {
     *query(_, { call, put }) {
-      const resIden = yield call(getIdentity);
-      const resPert = yield call(getPermits);
+      const identify = yield call(getIdentity);
+      const permits = yield call(getPermits);
       yield put({
         type: 'setIdentity',
-        payload: resIden.data,
+        payload: identify,
       });
       yield put({
         type: 'setPermits',
-        payload: resPert.data,
+        payload: permits,
       });
       reloadAuthorized();
     },

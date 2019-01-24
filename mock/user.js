@@ -76,15 +76,11 @@ export default {
     const { password, username } = req.body;
     if (password && username) {
       res.send({
-        errcode: null,
-        errmsg: null,
-        data: {
-          accessToken: 'HW7F9GYXRK0NLIRWUBLUN2AAJUZ8VCC7',
-          refreshToken: '3Z1GBSPP2NSFFOPP83BOJR2K8YIC2DPM',
-          created: 1548165493,
-          updated: 1548165493,
-          expired: 1548251893,
-        },
+        accessToken: 'HW7F9GYXRK0NLIRWUBLUN2AAJUZ8VCC7',
+        refreshToken: '3Z1GBSPP2NSFFOPP83BOJR2K8YIC2DPM',
+        created: 1548165493,
+        updated: 1548165493,
+        expired: 1548251893,
       });
     } else {
       res.send({
@@ -95,10 +91,12 @@ export default {
     }
   },
   'GET /api/v1/identityToken': (req, res) => {
-    res.send({
-      errcode: null,
-      errmsg: null,
-      data: {
+    const { accesstoken } = req.headers;
+    if (accesstoken !== 'HW7F9GYXRK0NLIRWUBLUN2AAJUZ8VCC7') {
+      res.status(401);
+      res.json({ message: 'no valid token' });
+    } else {
+      res.send({
         id: '4985jf8dhf93h',
         username: 'A013',
         email: '486769999@qq.com',
@@ -109,18 +107,20 @@ export default {
             code: 'BA',
           },
         ],
-      },
-    });
+      });
+    }
   },
   'GET /api/v1/permits': (req, res) => {
-    res.send({
-      errcode: null,
-      errmsg: null,
-      data: {
+    const { accesstoken } = req.headers;
+    if (accesstoken !== 'HW7F9GYXRK0NLIRWUBLUN2AAJUZ8VCC7') {
+      res.status(401);
+      res.json({ message: 'no valid token' });
+    } else {
+      res.send({
         roles: ['finance', 'sys_base', 'user'],
         permissions: ['finance_report', 'finance_report_upload', 'finance_report_view'],
-      },
-    });
+      });
+    }
   },
   'POST /api/register': (req, res) => {
     res.send({
