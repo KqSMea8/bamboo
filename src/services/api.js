@@ -103,8 +103,8 @@ export async function updateFakeList(params) {
   });
 }
 
-export async function fakeAccountLogin(params) {
-  return request('/api/login/account', {
+export async function obtainToken(params) {
+  return request('/api/v1/obtainToken', {
     method: 'POST',
     body: params,
   });
@@ -123,4 +123,12 @@ export async function queryNotices(params = {}) {
 
 export async function getFakeCaptcha(mobile) {
   return request(`/api/captcha?mobile=${mobile}`);
+}
+
+export async function getIdentity() {
+  return request('/api/v1/identityToken');
+}
+
+export async function getPermits() {
+  return request('/api/v1/permits');
 }

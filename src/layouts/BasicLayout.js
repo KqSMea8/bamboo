@@ -171,6 +171,9 @@ class BasicLayout extends React.PureComponent {
 
     const isTop = PropsLayout === 'topmenu';
     const routerConfig = this.getRouterAuthority(pathname, routes);
+    console.log(pathname);
+    console.log(routerConfig);
+    console.log(routes);
     const contentStyle = !fixedHeader ? { paddingTop: 0 } : {};
     const layout = (
       <Layout>

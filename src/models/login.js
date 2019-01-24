@@ -7,28 +7,37 @@
  */
 import { routerRedux } from 'dva/router';
 import { stringify } from 'qs';
-import { fakeAccountLogin, getFakeCaptcha } from '@/services/api';
+import { obtainToken, getFakeCaptcha, getPermits } from '@/services/api';
 import { setAuthority } from '@/utils/authority';
+import { setIdentify } from '@/utils/identify';
 import { getPageQuery } from '@/utils/utils';
 import { reloadAuthorized } from '@/utils/Authorized';
 
 export default {
   namespace: 'login',
-
   state: {
     status: undefined,
   },
-
   effects: {
     *login({ payload }, { call, put }) {
-      const response = yield call(fakeAccountLogin, payload);
-      yield put({
-        type: 'changeLoginStatus',
-        payload: response,
-      });
+      const response = yield call(obtainToken, payload);
       // Login successfully
-      if (response.status === 'ok') {
+      if (!response.errcode && !response.errmsg && response.data) {
+        yield put({
+          type: 'changeLoginStatus',
+          payload: {
+            status: 'ok',
+            currentAuthority: 'admin',
+          },
+        });
+        // Save identify
+        setIdentify(response.data);
+        // Get Pertmits for render router
+        const resPert = yield call(getPermits);
+        yield put({ type: 'global/setPermits', payload: resPert.data });
+        // Reload Authorized
         reloadAuthorized();
+        // Redirect
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;

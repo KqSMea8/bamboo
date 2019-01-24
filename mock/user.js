@@ -72,32 +72,61 @@ export default {
       address: 'Sidney No. 1 Lake Park',
     },
   ],
-  'POST /api/login/account': (req, res) => {
-    const { password, userName, type } = req.body;
-    if (password === 'ant.design' && userName === 'admin') {
+  'POST /api/v1/obtainToken': (req, res) => {
+    const { password, username } = req.body;
+    if (password && username) {
       res.send({
-        status: 'ok',
-        type,
-        currentAuthority: 'admin',
+        errcode: null,
+        errmsg: null,
+        data: {
+          accessToken: 'HW7F9GYXRK0NLIRWUBLUN2AAJUZ8VCC7',
+          refreshToken: '3Z1GBSPP2NSFFOPP83BOJR2K8YIC2DPM',
+          created: 1548165493,
+          updated: 1548165493,
+          expired: 1548251893,
+        },
       });
-      return;
-    }
-    if (password === 'ant.design' && userName === 'user') {
+    } else {
       res.send({
-        status: 'ok',
-        type,
-        currentAuthority: 'user',
+        errcode: 555,
+        errmsg: 'incorrect user name or password',
+        data: null,
       });
-      return;
     }
+  },
+  'GET /api/v1/identityToken': (req, res) => {
     res.send({
-      status: 'error',
-      type,
-      currentAuthority: 'guest',
+      errcode: null,
+      errmsg: null,
+      data: {
+        id: '4985jf8dhf93h',
+        username: 'A013',
+        email: '486769999@qq.com',
+        mobile: '18867542645',
+        departments: [
+          {
+            name: 'BA',
+            code: 'BA',
+          },
+        ],
+      },
+    });
+  },
+  'GET /api/v1/permits': (req, res) => {
+    res.send({
+      errcode: null,
+      errmsg: null,
+      data: {
+        roles: ['finance', 'sys_base', 'user'],
+        permissions: ['finance_report', 'finance_report_upload', 'finance_report_view'],
+      },
     });
   },
   'POST /api/register': (req, res) => {
-    res.send({ status: 'ok', currentAuthority: 'user' });
+    res.send({
+      status: 'ok',
+      currentAuthority: 'user',
+    });
   },
   'GET /api/500': (req, res) => {
     res.status(500).send({

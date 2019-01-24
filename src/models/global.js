@@ -1,15 +1,28 @@
-import { queryNotices } from '@/services/api';
+import { queryNotices, getIdentity, getPermits } from '@/services/api';
+import { reloadAuthorized } from '@/utils/Authorized';
 
 export default {
   namespace: 'global',
-
   state: {
     collapsed: false,
     notices: [],
+    permits: {},
     loadedAllNotices: false,
   },
-
   effects: {
+    *query(_, { call, put }) {
+      const resIden = yield call(getIdentity);
+      const resPert = yield call(getPermits);
+      yield put({
+        type: 'setIdentity',
+        payload: resIden.data,
+      });
+      yield put({
+        type: 'setPermits',
+        payload: resPert.data,
+      });
+      reloadAuthorized();
+    },
     *fetchNotices(_, { call, put, select }) {
       const data = yield call(queryNotices);
       const loadedAllNotices = data && data.length && data[data.length - 1] === null;
@@ -96,6 +109,18 @@ export default {
   },
 
   reducers: {
+    setIdentity(state, { payload }) {
+      return {
+        ...state,
+        identity: payload,
+      };
+    },
+    setPermits(state, { payload }) {
+      return {
+        ...state,
+        permits: payload,
+      };
+    },
     changeLayoutCollapsed(state, { payload }) {
       return {
         ...state,
@@ -129,9 +154,13 @@ export default {
   },
 
   subscriptions: {
-    setup({ history }) {
+    setup({ dispatch, history }) {
+      // Init global state once after brower reload
+      if (history.location.pathname.indexOf('/login') === -1) {
+        dispatch({ type: 'query' });
+      }
       // Subscribe history(url) change, trigger `load` action if pathname is `/`
-      return history.listen(({ pathname, search }) => {
+      history.listen(({ pathname, search }) => {
         if (typeof window.ga !== 'undefined') {
           window.ga('send', 'pageview', pathname + search);
         }

@@ -5,20 +5,19 @@
  * @modify date 2019-01-20 21:17:18
  * @desc [getAuthority and setAuthority]
  */
-export function getAuthority(str) {
-  const authorityString =
-    typeof str === 'undefined' ? localStorage.getItem('antd-pro-authority') : str;
-  // authorityString could be admin, "admin", ["admin"]
-  let authority;
-  try {
-    authority = JSON.parse(authorityString);
-  } catch (e) {
-    authority = authorityString;
+
+function select(state) {
+  return state.global && state.global.permits;
+}
+
+export function getAuthority() {
+  let permits = [];
+  // eslint-disable-next-line no-underscore-dangle
+  const store = window.g_app._store;
+  if (store) {
+    permits = select(store.getState()).roles;
   }
-  if (typeof authority === 'string') {
-    return [authority];
-  }
-  return authority || ['admin'];
+  return permits;
 }
 
 export function setAuthority(authority) {

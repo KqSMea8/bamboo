@@ -3,6 +3,7 @@ import { notification } from 'antd';
 import router from 'umi/router';
 import hash from 'hash.js';
 import { isAntdPro } from './utils';
+import { getIdentify } from './identify';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -64,6 +65,7 @@ const cachedSave = (response, hashcode) => {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, option) {
+  const identify = getIdentify();
   const options = {
     expirys: isAntdPro(),
     ...option,
@@ -102,6 +104,8 @@ export default function request(url, option) {
       };
     }
   }
+  newOptions.headers = newOptions.headers || {};
+  newOptions.headers.accessToken = identify.accessToken;
 
   const expirys = options.expirys && 60;
   // options.expirys !== false, return the cache,
@@ -118,6 +122,7 @@ export default function request(url, option) {
       sessionStorage.removeItem(`${hashcode}:timestamp`);
     }
   }
+
   return fetch(url, newOptions)
     .then(checkStatus)
     .then(response => cachedSave(response, hashcode))
