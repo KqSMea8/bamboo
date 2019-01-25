@@ -6,10 +6,16 @@
  * @desc [getIdentify and setIdentify]
  */
 
+import memoizeOne from 'memoize-one';
+import isEqual from 'lodash/isEqual';
 import { encrypted, decrypted } from './crypto';
 
 const IDENTIFY = 'IDENTIFY';
 const store = localStorage;
+
+let memoKey = Math.random()
+  .toString(36)
+  .substring(2);
 
 function getItem(key) {
   try {
@@ -25,16 +31,21 @@ function getItem(key) {
   }
 }
 
+const memoizeOneFormatter = memoizeOne((mk, key) => getItem(key), isEqual);
+
 function setItem(key, entity) {
   const enc = encrypted(JSON.stringify(entity));
   return store.setItem(key, enc);
 }
 
 export function getIdentify() {
-  return getItem(IDENTIFY);
+  return memoizeOneFormatter(memoKey, IDENTIFY);
 }
 
 export function setIdentify(identify) {
+  memoKey = Math.random()
+    .toString(36)
+    .substring(2);
   return setItem(IDENTIFY, identify);
 }
 
