@@ -6,19 +6,28 @@
  * @desc [getIdentify and setIdentify]
  */
 
+import { encrypted, decrypted } from './crypto';
+
 const IDENTIFY = 'IDENTIFY';
 const store = localStorage;
 
 function getItem(key) {
   try {
-    return JSON.parse(store.getItem(key)) || {};
+    const raw = store.getItem(key);
+
+    if (!raw) {
+      return {};
+    }
+    const dec = decrypted(raw);
+    return JSON.parse(dec) || {};
   } catch (e) {
     return {};
   }
 }
 
 function setItem(key, entity) {
-  return store.setItem(key, JSON.stringify(entity));
+  const enc = encrypted(JSON.stringify(entity));
+  return store.setItem(key, enc);
 }
 
 export function getIdentify() {
