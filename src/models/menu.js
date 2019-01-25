@@ -25,16 +25,10 @@ function formatter(data, parentAuthority, parentName) {
       const name = menu.disableLocal
         ? item.name
         : formatMessage({ id: locale, defaultMessage: item.name });
-      const result = {
-        ...item,
-        name,
-        locale,
-        authority: item.authority || parentAuthority,
-      };
+      const result = { ...item, name, locale, authority: item.authority || parentAuthority };
       if (item.routes) {
-        const children = formatter(item.routes, item.authority, locale);
         // Reduce memory usage
-        result.children = children;
+        result.children = formatter(item.routes, result.authority, locale);
       }
       delete result.routes;
       return result;
@@ -50,10 +44,8 @@ const memoizeOneFormatter = memoizeOne(formatter, isEqual);
 const getSubMenu = item => {
   // doc: add hideChildrenInMenu
   if (item.children && !item.hideChildrenInMenu && item.children.some(child => child.name)) {
-    return {
-      ...item,
-      children: filterMenuData(item.children), // eslint-disable-line
-    };
+    // eslint-disable-next-line no-use-before-define
+    return { ...item, children: filterMenuData(item.children) };
   }
   return item;
 };
@@ -70,13 +62,13 @@ const filterMenuData = menuData => {
     .map(item => check(item.authority, getSubMenu(item)))
     .filter(item => item);
 };
+
 /**
  * 获取面包屑映射
  * @param {Object} menuData 菜单配置
  */
 const getBreadcrumbNameMap = menuData => {
   const routerMap = {};
-
   const flattenMenuData = data => {
     data.forEach(menuItem => {
       if (menuItem.children) {
@@ -96,18 +88,20 @@ export default {
   namespace: 'menu',
 
   state: {
-    menuData: [],
+    menuData: [], // for check or get authority from intact menuData
+    authMenuData: [], // for authority menu rendering from authority menuData
     breadcrumbNameMap: {},
   },
 
   effects: {
     *getMenuData({ payload }, { put }) {
       const { routes, authority } = payload;
-      const menuData = filterMenuData(memoizeOneFormatter(routes, authority));
-      const breadcrumbNameMap = memoizeOneGetBreadcrumbNameMap(menuData);
+      const menuData = memoizeOneFormatter(routes, authority);
+      const authMenuData = filterMenuData(memoizeOneFormatter(routes, authority));
+      const breadcrumbNameMap = memoizeOneGetBreadcrumbNameMap(authMenuData);
       yield put({
         type: 'save',
-        payload: { menuData, breadcrumbNameMap },
+        payload: { menuData, authMenuData, breadcrumbNameMap },
       });
     },
   },

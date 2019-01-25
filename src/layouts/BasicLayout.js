@@ -97,14 +97,15 @@ class BasicLayout extends React.PureComponent {
     return breadcrumbNameMap[pathKey];
   };
 
+  // get router authority from menuData
   getRouterAuthority = (pathname, routeData) => {
-    let routeAuthority = ['noAuthority'];
-    const getAuthority = (key, routes) => {
-      routes.forEach(route => {
+    let routeAuthority;
+    const getAuthority = (key, children) => {
+      children.forEach(route => {
         if (route.path && pathToRegexp(route.path).test(key)) {
           routeAuthority = route.authority;
-        } else if (route.routes) {
-          routeAuthority = getAuthority(key, route.routes);
+        } else if (route.children) {
+          routeAuthority = getAuthority(key, route.children);
         }
         return route;
       });
@@ -115,7 +116,6 @@ class BasicLayout extends React.PureComponent {
 
   getPageTitle = (pathname, breadcrumbNameMap) => {
     const currRouterData = this.matchParamsPath(pathname, breadcrumbNameMap);
-
     if (!currRouterData) {
       return title;
     }
@@ -125,7 +125,6 @@ class BasicLayout extends React.PureComponent {
           id: currRouterData.locale || currRouterData.name,
           defaultMessage: currRouterData.name,
         });
-
     return `${pageName} - ${title}`;
   };
 
@@ -164,16 +163,13 @@ class BasicLayout extends React.PureComponent {
       location: { pathname },
       isMobile,
       menuData,
+      authMenuData,
       breadcrumbNameMap,
-      route: { routes },
       fixedHeader,
     } = this.props;
 
     const isTop = PropsLayout === 'topmenu';
-    const routerConfig = this.getRouterAuthority(pathname, routes);
-    console.log(pathname);
-    console.log(routerConfig);
-    console.log(routes);
+    const routerConfig = this.getRouterAuthority(pathname, menuData);
     const contentStyle = !fixedHeader ? { paddingTop: 0 } : {};
     const layout = (
       <Layout>
@@ -182,19 +178,14 @@ class BasicLayout extends React.PureComponent {
             logo={logo}
             theme={navTheme}
             onCollapse={this.handleMenuCollapse}
-            menuData={menuData}
+            authMenuData={authMenuData}
             isMobile={isMobile}
             {...this.props}
           />
         )}
-        <Layout
-          style={{
-            ...this.getLayoutStyle(),
-            minHeight: '100vh',
-          }}
-        >
+        <Layout style={{ ...this.getLayoutStyle(), minHeight: '100vh' }}>
           <Header
-            menuData={menuData}
+            authMenuData={authMenuData}
             handleMenuCollapse={this.handleMenuCollapse}
             logo={logo}
             isMobile={isMobile}
@@ -230,6 +221,7 @@ export default connect(({ global, setting, menu: menuModel }) => ({
   collapsed: global.collapsed,
   layout: setting.layout,
   menuData: menuModel.menuData,
+  authMenuData: menuModel.authMenuData,
   breadcrumbNameMap: menuModel.breadcrumbNameMap,
   ...setting,
 }))(props => (

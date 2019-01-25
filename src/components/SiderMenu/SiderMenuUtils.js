@@ -6,9 +6,9 @@ import { urlToList } from '../_utils/pathTools';
  * [{path:string},{path:string}] => {path,path2}
  * @param  menus
  */
-export const getFlatMenuKeys = menuData => {
+export const getFlatMenuKeys = authMenuData => {
   let keys = [];
-  menuData.forEach(item => {
+  authMenuData.forEach(item => {
     keys.push(item.path);
     if (item.children) {
       keys = keys.concat(getFlatMenuKeys(item.children));

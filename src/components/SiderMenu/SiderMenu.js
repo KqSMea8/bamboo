@@ -29,8 +29,8 @@ export default class SiderMenu extends PureComponent {
   }
 
   isMainMenu = key => {
-    const { menuData } = this.props;
-    return menuData.some(item => {
+    const { authMenuData } = this.props;
+    return authMenuData.some(item => {
       if (key) {
         return item.key === key || item.path === key;
       }
@@ -49,7 +49,6 @@ export default class SiderMenu extends PureComponent {
     const { logo, collapsed, onCollapse, fixSiderbar, theme } = this.props;
     const { openKeys } = this.state;
     const defaultProps = collapsed ? {} : { openKeys };
-
     const siderClassName = classNames(styles.sider, {
       [styles.fixSiderbar]: fixSiderbar,
       [styles.light]: theme === 'light',
