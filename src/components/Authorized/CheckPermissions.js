@@ -25,42 +25,101 @@ function isPromise(obj) {
  * @param { 通过的组件 Passing components } target
  * @param { 未通过的组件 no pass components } Exception
  */
-const checkPermissions = (authority, currentAuthority, target, Exception) => {
-  // 没有判定权限.默认查看所有
-  // Retirement authority, return target;
+function checkPermissions(authority, currentAuthority, target, Exception) {
   if (!authority) {
     return target;
   }
-  // 数组处理
-  if (Array.isArray(authority)) {
-    if (authority.indexOf(currentAuthority) >= 0) {
-      return target;
-    }
-    if (Array.isArray(currentAuthority)) {
-      for (let i = 0; i < currentAuthority.length; i += 1) {
-        const element = currentAuthority[i];
-        if (authority.indexOf(element) >= 0) {
-          return target;
-        }
-      }
-    }
+  if (authority && !currentAuthority) {
     return Exception;
   }
 
-  // string 处理
   if (typeof authority === 'string') {
-    if (authority === currentAuthority) {
-      return target;
-    }
-    if (Array.isArray(currentAuthority)) {
-      for (let i = 0; i < currentAuthority.length; i += 1) {
-        const element = currentAuthority[i];
-        if (authority === element) {
-          return target;
+    // eslint-disable-next-line no-param-reassign
+    authority = authority
+      .split(';')
+      .filter(rp => rp)
+      .map(rp => {
+        const splites = rp.split('@');
+        if (splites.length === 1) {
+          return {
+            roles: splites[0]
+              .split(',')
+              .map(x => x.trim())
+              .filter(x => x),
+            permits: [],
+          };
         }
-      }
+        return {
+          roles: splites[0]
+            .split(',')
+            .map(x => x.trim())
+            .filter(x => x),
+          permits: splites[1]
+            .split(',')
+            .map(x => x.trim())
+            .filter(x => x),
+        };
+      });
+  }
+
+  if (Array.isArray(currentAuthority)) {
+    // eslint-disable-next-line no-param-reassign
+    currentAuthority = currentAuthority.join(',');
+  }
+
+  if (typeof currentAuthority === 'string') {
+    const splites = currentAuthority.split('@');
+    if (splites.length === 1) {
+      // eslint-disable-next-line no-param-reassign
+      currentAuthority = {
+        roles: splites[0]
+          .split(',')
+          .map(x => x.trim())
+          .filter(x => x),
+        permits: [],
+      };
+    } else {
+      // eslint-disable-next-line no-param-reassign
+      currentAuthority = {
+        roles: splites[0]
+          .split(',')
+          .map(x => x.trim())
+          .filter(x => x),
+        permits: splites[1]
+          .split(',')
+          .map(x => x.trim())
+          .filter(x => x),
+      };
     }
-    return Exception;
+  }
+
+  if (Array.isArray(authority)) {
+    // eslint-disable-next-line no-param-reassign
+    authority = authority.map(rp => {
+      if (typeof rp === 'string') {
+        const splites = rp.split('@');
+        if (splites.length === 1) {
+          return {
+            roles: splites[0]
+              .split(',')
+              .map(x => x.trim())
+              .filter(x => x),
+            permits: [],
+          };
+        }
+        return {
+          roles: splites[0]
+            .split(',')
+            .map(x => x.trim())
+            .filter(x => x),
+          permits: splites[1]
+            .split(',')
+            .map(x => x.trim())
+            .filter(x => x),
+        };
+      }
+      return rp;
+    });
   }
 
   // Promise 处理
@@ -68,24 +127,61 @@ const checkPermissions = (authority, currentAuthority, target, Exception) => {
     return <PromiseRender ok={target} error={Exception} promise={authority} />;
   }
 
-  // Function 处理
   if (typeof authority === 'function') {
-    try {
-      const bool = authority(currentAuthority);
-      // 函数执行后返回值是 Promise
-      if (isPromise(bool)) {
-        return <PromiseRender ok={target} error={Exception} promise={bool} />;
-      }
-      if (bool) {
-        return target;
-      }
-      return Exception;
-    } catch (error) {
-      throw error;
+    const ret = authority(currentAuthority);
+    if (isPromise(ret)) {
+      return <PromiseRender ok={target} error={Exception} promise={ret} />;
+    }
+    return target;
+  }
+
+  if (
+    !(
+      (Array.isArray(authority) || typeof authority === 'function') &&
+      typeof currentAuthority === 'object'
+    )
+  ) {
+    return Exception;
+  }
+
+  // eslint-disable-next-line no-param-reassign
+  authority = authority.map(x => ({
+    roles: x.roles || [],
+    permits: x.permits || [],
+  }));
+
+  // eslint-disable-next-line no-param-reassign
+  currentAuthority = {
+    roles: currentAuthority.roles || [],
+    permits: currentAuthority.permits || [],
+  };
+
+  for (let i = 0; i < authority.length; i += 1) {
+    const rp = authority[i];
+    const rolesExisted = rp.roles.reduce((acc, curr) => {
+      const exited = !!currentAuthority.roles.find(x => x === curr);
+      return exited && acc;
+    }, true);
+    const allRolesExisted = currentAuthority.roles.find(x => x.toUpperCase() === 'ALL');
+
+    const permitsExisted = rp.permits.reduce((acc, curr) => {
+      const exited = !!currentAuthority.permits.find(x => x === curr);
+      return exited && acc;
+    }, true);
+    const allPermitsExisted = currentAuthority.permits.find(x => x.toUpperCase() === 'ALL');
+
+    // allRolesExisted && allPermitsExisted === admin
+    const existed =
+      (allRolesExisted && allPermitsExisted) ||
+      (rolesExisted && permitsExisted) ||
+      (allRolesExisted && permitsExisted) ||
+      (rolesExisted && allPermitsExisted);
+    if (existed) {
+      return target;
     }
   }
-  throw new Error('unsupported parameters');
-};
+  return Exception;
+}
 
 export { checkPermissions };
 
