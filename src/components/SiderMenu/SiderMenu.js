@@ -29,8 +29,8 @@ export default class SiderMenu extends PureComponent {
   }
 
   isMainMenu = key => {
-    const { authMenuData } = this.props;
-    return authMenuData.some(item => {
+    const { menuData } = this.props;
+    return menuData.some(item => {
       if (key) {
         return item.key === key || item.path === key;
       }

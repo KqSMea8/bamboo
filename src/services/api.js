@@ -132,3 +132,7 @@ export async function getIdentity() {
 export async function getPermits() {
   return request('/api/v1/permits');
 }
+
+export async function getMenuData() {
+  return request('/api/v1/menuList');
+}

@@ -1,4 +1,4 @@
-import { queryNotices, getIdentity, getPermits } from '@/services/api';
+import { queryNotices, getIdentity, getPermits, getMenuData } from '@/services/api';
 import { reloadAuthorized } from '@/utils/Authorized';
 
 export default {
@@ -22,6 +22,11 @@ export default {
         payload: permits,
       });
       reloadAuthorized();
+      const menuList = yield call(getMenuData);
+      yield put({
+        type: 'menu/save',
+        payload: menuList,
+      });
     },
     *fetchNotices(_, { call, put, select }) {
       const data = yield call(queryNotices);

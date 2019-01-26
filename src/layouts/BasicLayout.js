@@ -59,19 +59,12 @@ class BasicLayout extends React.PureComponent {
   }
 
   componentDidMount() {
-    const {
-      dispatch,
-      route: { routes, authority },
-    } = this.props;
+    const { dispatch } = this.props;
     dispatch({
       type: 'user/fetchCurrent',
     });
     dispatch({
       type: 'setting/getSetting',
-    });
-    dispatch({
-      type: 'menu/getMenuData',
-      payload: { routes, authority },
     });
   }
 
@@ -97,7 +90,7 @@ class BasicLayout extends React.PureComponent {
     return breadcrumbNameMap[pathKey];
   };
 
-  // get router authority from menuData
+  // get router authority from menuRaw
   getRouterAuthority = (pathname, routeData) => {
     let routeAuthority;
     const getAuthority = (key, children) => {
@@ -162,14 +155,13 @@ class BasicLayout extends React.PureComponent {
       children,
       location: { pathname },
       isMobile,
+      menuRaw,
       menuData,
-      authMenuData,
       breadcrumbNameMap,
       fixedHeader,
     } = this.props;
-
     const isTop = PropsLayout === 'topmenu';
-    const routerConfig = this.getRouterAuthority(pathname, menuData);
+    const authority = this.getRouterAuthority(pathname, menuRaw);
     const contentStyle = !fixedHeader ? { paddingTop: 0 } : {};
     const layout = (
       <Layout>
@@ -178,21 +170,21 @@ class BasicLayout extends React.PureComponent {
             logo={logo}
             theme={navTheme}
             onCollapse={this.handleMenuCollapse}
-            authMenuData={authMenuData}
+            menuData={menuData}
             isMobile={isMobile}
             {...this.props}
           />
         )}
         <Layout style={{ ...this.getLayoutStyle(), minHeight: '100vh' }}>
           <Header
-            authMenuData={authMenuData}
+            menuData={menuData}
             handleMenuCollapse={this.handleMenuCollapse}
             logo={logo}
             isMobile={isMobile}
             {...this.props}
           />
           <Content className={styles.content} style={contentStyle}>
-            <Authorized authority={routerConfig} noMatch={<Exception403 />}>
+            <Authorized authority={authority} noMatch={<Exception403 />}>
               {children}
             </Authorized>
           </Content>
@@ -220,8 +212,8 @@ class BasicLayout extends React.PureComponent {
 export default connect(({ global, setting, menu: menuModel }) => ({
   collapsed: global.collapsed,
   layout: setting.layout,
+  menuRaw: menuModel.menuRaw,
   menuData: menuModel.menuData,
-  authMenuData: menuModel.authMenuData,
   breadcrumbNameMap: menuModel.breadcrumbNameMap,
   ...setting,
 }))(props => (

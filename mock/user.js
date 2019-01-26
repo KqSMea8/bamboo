@@ -1,3 +1,5 @@
+import menuList from './menu';
+
 // 代码中会兼容本地 service mock 以及部署站点的静态数据
 export default {
   // 支持值为 Object 和 Array
@@ -163,5 +165,14 @@ export default {
       message: 'Unauthorized',
       path: '/base/category/list',
     });
+  },
+  'GET /api/v1/menuList': (req, res) => {
+    const { accesstoken } = req.headers;
+    if (accesstoken !== 'HW7F9GYXRK0NLIRWUBLUN2AAJUZ8VCC7') {
+      res.status(401);
+      res.json({ message: 'no valid token' });
+    } else {
+      res.send(menuList);
+    }
   },
 };

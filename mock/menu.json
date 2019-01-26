@@ -1,0 +1,290 @@
+[
+  {
+    "path": "/dashboard",
+    "name": "dashboard",
+    "icon": "dashboard",
+
+    "authority": ["admin", "user"],
+    "id": "4qZ6TZKWGrOEvLqcVqku7INOMioO1pR3"
+  },
+  {
+    "path": "/dashboard/analysis",
+    "name": "analysis",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "4qZ6TZKWGrOEvLqcVqku7INOMioO1pR3",
+    "id": "0o9espRu1owjSEPswUr4pnOmslqTzj5b"
+  },
+  {
+    "path": "/dashboard/monitor",
+    "name": "monitor",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "4qZ6TZKWGrOEvLqcVqku7INOMioO1pR3",
+    "id": "oHvY59PT0Vy1qU4KGH1EE1TP8HQQzurD"
+  },
+  {
+    "path": "/dashboard/workplace",
+    "name": "workplace",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "4qZ6TZKWGrOEvLqcVqku7INOMioO1pR3",
+    "id": "7nd5xXPCWbIo5zh3pJeiWbEa1ASRMds0"
+  },
+  {
+    "path": "/form",
+    "icon": "form",
+    "name": "form",
+
+    "authority": ["admin", "user"],
+    "id": "GxyLexC3qDFZA3hv8pEU7rwB6BazkAWL"
+  },
+  {
+    "path": "/form/basic-form",
+    "name": "basicform",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "GxyLexC3qDFZA3hv8pEU7rwB6BazkAWL",
+    "id": "lm4MJxl1GjtOvMTEb41lEOCOeiU8CnRx"
+  },
+  {
+    "path": "/form/step-form",
+    "name": "stepform",
+    "hideChildrenInMenu": true,
+
+    "authority": ["admin", "user"],
+    "parent": "GxyLexC3qDFZA3hv8pEU7rwB6BazkAWL",
+    "id": "qEF0VI4yCJU6m2iSmwwbX1spEM42OP4v"
+  },
+  {
+    "path": "/form/step-form/info",
+    "name": "info",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "qEF0VI4yCJU6m2iSmwwbX1spEM42OP4v",
+    "id": "F0dBs1KMo4mYdHb8hs9R2gVtr36RpZjs"
+  },
+  {
+    "path": "/form/step-form/confirm",
+    "name": "confirm",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "qEF0VI4yCJU6m2iSmwwbX1spEM42OP4v",
+    "id": "feXz4DZNuyYkLHp8nKPwcTdnjerowN4C"
+  },
+  {
+    "path": "/form/step-form/result",
+    "name": "result",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "qEF0VI4yCJU6m2iSmwwbX1spEM42OP4v",
+    "id": "iKOuk2VCiNDkksVb9gMKFWPIbsRDyacq"
+  },
+  {
+    "path": "/form/advanced-form",
+    "name": "advancedform",
+    "authority": ["admin"],
+    "exact": true,
+
+    "parent": "GxyLexC3qDFZA3hv8pEU7rwB6BazkAWL",
+    "id": "ZAl8Fw4n6B8MY7i8nebcf1JRB8UZ0MwP"
+  },
+  {
+    "path": "/list",
+    "icon": "table",
+    "name": "list",
+
+    "authority": ["admin", "user"],
+    "id": "TJ7gTsTbxB2ywnSOKd6CbFso5oAAFF06"
+  },
+  {
+    "path": "/list/table-list",
+    "name": "searchtable",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "TJ7gTsTbxB2ywnSOKd6CbFso5oAAFF06",
+    "id": "OlVXoN6efGEwq4UBgCjky6dHP4GViisT"
+  },
+  {
+    "path": "/list/basic-list",
+    "name": "basiclist",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "TJ7gTsTbxB2ywnSOKd6CbFso5oAAFF06",
+    "id": "6HMJl9749PhLjvGz5sJshJnXvwZaRufI"
+  },
+  {
+    "path": "/list/card-list",
+    "name": "cardlist",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "TJ7gTsTbxB2ywnSOKd6CbFso5oAAFF06",
+    "id": "C58FhsW5TRi1gDdRPkHBNS4nDMq4q2BK"
+  },
+  {
+    "path": "/list/search",
+    "name": "searchlist",
+
+    "authority": ["admin", "user"],
+    "parent": "TJ7gTsTbxB2ywnSOKd6CbFso5oAAFF06",
+    "id": "XGBP8NxywzuknwU5H1tR9OyLAouB2mES"
+  },
+  {
+    "path": "/list/search/articles",
+    "name": "articles",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "XGBP8NxywzuknwU5H1tR9OyLAouB2mES",
+    "id": "t9cvtDSEgH2ODXtgSqSKyplEkXr44yCB"
+  },
+  {
+    "path": "/list/search/projects",
+    "name": "projects",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "XGBP8NxywzuknwU5H1tR9OyLAouB2mES",
+    "id": "OmPWtfLyRoxSmQkUkuVK3Kwv5BfpxTWi"
+  },
+  {
+    "path": "/list/search/applications",
+    "name": "applications",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "XGBP8NxywzuknwU5H1tR9OyLAouB2mES",
+    "id": "24OrtDDAjcaG8SDlI1GwwBIgeBPco2zo"
+  },
+  {
+    "path": "/profile",
+    "name": "profile",
+    "icon": "profile",
+
+    "authority": ["admin", "user"],
+    "id": "dxVOuYESaclDZ8yonswXVA3nQltWm0u4"
+  },
+  {
+    "path": "/profile/basic",
+    "name": "basic",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "dxVOuYESaclDZ8yonswXVA3nQltWm0u4",
+    "id": "8zLDwqblPx3BZFULf2LFLnP86Qh0K317"
+  },
+  {
+    "path": "/profile/advanced",
+    "name": "advanced",
+    "authority": ["admin"],
+    "exact": true,
+
+    "parent": "dxVOuYESaclDZ8yonswXVA3nQltWm0u4",
+    "id": "nqPVJE2zBiymmZbFQnLW3IxvcCSJVYi6"
+  },
+  {
+    "name": "result",
+    "icon": "check-circle-o",
+    "path": "/result",
+
+    "authority": ["admin", "user"],
+    "id": "upK7QHeFtFnC7vyvWYiPRy1yxykxFGaH"
+  },
+  {
+    "path": "/result/success",
+    "name": "success",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "upK7QHeFtFnC7vyvWYiPRy1yxykxFGaH",
+    "id": "11ilxmDXO3HWNahJmeVoOttTDLlRKtqA"
+  },
+  {
+    "path": "/result/fail",
+    "name": "fail",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "upK7QHeFtFnC7vyvWYiPRy1yxykxFGaH",
+    "id": "yhECC1nMLAxPHKutDWEqkcs3WLr6iYBr"
+  },
+  {
+    "name": "exception",
+    "icon": "warning",
+    "path": "/exception",
+
+    "authority": ["admin", "user"],
+    "id": "fJdzp1KFPG6Jr8zxaRhOJY5tV1bqKnmn"
+  },
+  {
+    "path": "/exception/403",
+    "name": "not-permission",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "fJdzp1KFPG6Jr8zxaRhOJY5tV1bqKnmn",
+    "id": "idozOeuLPANlNnGU6VEiTQOp1OPFOIwH"
+  },
+  {
+    "path": "/exception/404",
+    "name": "not-find",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "fJdzp1KFPG6Jr8zxaRhOJY5tV1bqKnmn",
+    "id": "ArvGrq9cjWcOo53oCyuuiREy9eSDczx0"
+  },
+  {
+    "path": "/exception/500",
+    "name": "server-error",
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "fJdzp1KFPG6Jr8zxaRhOJY5tV1bqKnmn",
+    "id": "Qa6FiEUQuL590UdBvMVcqNavVrR90NaU"
+  },
+  {
+    "path": "/exception/trigger",
+    "name": "trigger",
+    "hideInMenu": true,
+    "exact": true,
+
+    "authority": ["admin", "user"],
+    "parent": "fJdzp1KFPG6Jr8zxaRhOJY5tV1bqKnmn",
+    "id": "UEOB9w6DIwnhKqm9IyKOw4HxuPcKBZLX"
+  },
+  {
+    "name": "account",
+    "icon": "user",
+    "path": "/account",
+
+    "authority": ["admin", "user"],
+    "id": "8EDyyCSXWEJpG2NxaBuaiTAJqBLWiFFo"
+  },
+  {
+    "path": "/account/center",
+    "name": "center",
+
+    "authority": ["admin", "user"],
+    "parent": "8EDyyCSXWEJpG2NxaBuaiTAJqBLWiFFo",
+    "id": "nObXPnrWYMZi3OI32V5crNwDqRSJ9RkL"
+  },
+  {
+    "path": "/account/settings",
+    "name": "settings",
+
+    "authority": ["admin", "user"],
+    "parent": "8EDyyCSXWEJpG2NxaBuaiTAJqBLWiFFo",
+    "id": "xYvpMSkZns8sjDtL2afLqB4mzfAsaaxz"
+  }
+]

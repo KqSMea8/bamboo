@@ -17,9 +17,9 @@ export default class TopNavHeader extends PureComponent {
   }
 
   render() {
-    const { theme, contentWidth, authMenuData, logo } = this.props;
+    const { theme, contentWidth, menuData, logo } = this.props;
     const { maxWidth } = this.state;
-    const flatMenuKeys = getFlatMenuKeys(authMenuData);
+    const flatMenuKeys = getFlatMenuKeys(menuData);
     return (
       <div className={`${styles.head} ${theme === 'light' ? styles.light : ''}`}>
         <div
