@@ -2,11 +2,9 @@ import { queryFakeList, removeFakeList, addFakeList, updateFakeList } from '@/se
 
 export default {
   namespace: 'list',
-
   state: {
     list: [],
   },
-
   effects: {
     *fetch({ payload }, { call, put }) {
       const response = yield call(queryFakeList, payload);

@@ -1,5 +1,6 @@
 import fetch from 'dva/fetch';
 import { notification } from 'antd';
+import { formatMessage } from 'umi/locale';
 import router from 'umi/router';
 import hash from 'hash.js';
 import { isAntdPro } from './utils';
@@ -28,24 +29,27 @@ const checkStatus = response => {
     return response;
   }
   const errortext = codeMessage[response.status] || response.statusText;
-  notification.error({
-    message: `请求错误 ${response.status}: ${response.url}`,
-    description: errortext,
-  });
+  const reqError = formatMessage({ id: 'reqError', defaultMessage: '请求错误' });
+  if (response.status !== 401) {
+    notification.error({
+      message: `${reqError} ${response.status}: ${response.url}`,
+      description: errortext,
+    });
+  }
   const error = new Error(errortext);
   error.name = response.status;
   error.response = response;
   throw error;
 };
 
+/**
+ * Clone a response data and store it in sessionStorage
+ * Does not support data other than json, Cache only json
+ * All data is saved as text
+ */
 const cachedSave = (response, hashcode) => {
-  /**
-   * Clone a response data and store it in sessionStorage
-   * Does not support data other than json, Cache only json
-   */
   const contentType = response.headers.get('Content-Type');
   if (contentType && contentType.match(/application\/json/i)) {
-    // All data is saved as text
     response
       .clone()
       .text()
@@ -59,27 +63,21 @@ const cachedSave = (response, hashcode) => {
 
 /**
  * Requests a URL, returning a promise.
- *
+ * Fingerprints:
+ * Produce fingerprints based on url and parameters
+ * Maybe url has the same parameters
  * @param  {string} url       The URL we want to request
  * @param  {object} [option] The options we want to pass to "fetch"
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, option) {
   const identify = getIdentify();
-  const options = {
-    expirys: isAntdPro(),
-    ...option,
-  };
-  /**
-   * Produce fingerprints based on url and parameters
-   * Maybe url has the same parameters
-   */
+  const options = { expirys: isAntdPro(), ...option };
   const fingerprint = url + (options.body ? JSON.stringify(options.body) : '');
   const hashcode = hash
     .sha256()
     .update(fingerprint)
     .digest('hex');
-
   const defaultOptions = {
     credentials: 'include',
   };
@@ -125,19 +123,18 @@ export default function request(url, option) {
 
   return fetch(url, newOptions)
     .then(checkStatus)
-    .then(response => cachedSave(response, hashcode))
-    .then(response => {
+    .then(res => cachedSave(res, hashcode))
+    .then(res => {
       // DELETE and 204 do not return data by default
       // using .json will report an error.
-      if (newOptions.method === 'DELETE' || response.status === 204) {
-        return response.text();
+      if (newOptions.method === 'DELETE' || res.status === 204) {
+        return res.text();
       }
-      return response.json();
+      return res.json();
     })
     .catch(e => {
       const status = e.name;
       if (status === 401) {
-        // @HACK
         /* eslint-disable no-underscore-dangle */
         window.g_app._store.dispatch({
           type: 'login/logout',

@@ -7,8 +7,7 @@
  */
 import { routerRedux } from 'dva/router';
 import { stringify } from 'qs';
-import { obtainToken, getFakeCaptcha, getPermits } from '@/services/api';
-import { setAuthority } from '@/utils/authority';
+import { obtainToken, getFakeCaptcha, getPermits, getMenuData, getIdentity } from '@/services/api';
 import { setIdentify, unsetIdentify } from '@/utils/identify';
 import { getPageQuery } from '@/utils/utils';
 import { reloadAuthorized } from '@/utils/Authorized';
@@ -20,24 +19,24 @@ export default {
   },
   effects: {
     *login({ payload }, { call, put }) {
-      const identify = yield call(obtainToken, payload);
+      const token = yield call(obtainToken, payload);
       // Login successfully
-      if (identify) {
-        yield put({
-          type: 'changeLoginStatus',
-          payload: {
-            status: 'ok',
-            currentAuthority: 'admin',
-          },
-        });
+      if (token) {
+        // ***********************************************
+        // System setup base data for other components
         // Save identify
-        setIdentify(identify);
-        // Get Pertmits for render router
+        setIdentify(token);
+        const identify = yield call(getIdentity);
         const permits = yield call(getPermits);
+        yield put({ type: 'global/setIdentity', payload: identify });
         yield put({ type: 'global/setPermits', payload: permits });
         // Reload Authorized
         reloadAuthorized();
-        // Redirect
+        // System setup base data for other components end
+        // ***********************************************
+        const menuList = yield call(getMenuData);
+        yield put({ type: 'menu/save', payload: menuList });
+        // Redirect to comefrom page
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params;
@@ -62,13 +61,6 @@ export default {
     },
 
     *logout(_, { put }) {
-      yield put({
-        type: 'changeLoginStatus',
-        payload: {
-          status: false,
-          currentAuthority: 'guest',
-        },
-      });
       unsetIdentify();
       reloadAuthorized();
       yield put(
@@ -79,17 +71,6 @@ export default {
           }),
         })
       );
-    },
-  },
-
-  reducers: {
-    changeLoginStatus(state, { payload }) {
-      setAuthority(payload.currentAuthority);
-      return {
-        ...state,
-        status: payload.status,
-        type: payload.type,
-      };
     },
   },
 };

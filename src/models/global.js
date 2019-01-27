@@ -11,22 +11,17 @@ export default {
   },
   effects: {
     *query(_, { call, put }) {
+      // ***********************************************
+      // System setup base data for other components
       const identify = yield call(getIdentity);
       const permits = yield call(getPermits);
-      yield put({
-        type: 'setIdentity',
-        payload: identify,
-      });
-      yield put({
-        type: 'setPermits',
-        payload: permits,
-      });
+      yield put({ type: 'setIdentity', payload: identify });
+      yield put({ type: 'setPermits', payload: permits });
       reloadAuthorized();
+      // System setup base data for other components end
+      // ***********************************************
       const menuList = yield call(getMenuData);
-      yield put({
-        type: 'menu/save',
-        payload: menuList,
-      });
+      yield put({ type: 'menu/save', payload: menuList });
     },
     *fetchNotices(_, { call, put, select }) {
       const data = yield call(queryNotices);
