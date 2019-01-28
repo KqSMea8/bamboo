@@ -1,11 +1,17 @@
+/**
+ * @author [Double]
+ * @email [2637309949@qq.com]
+ * @create date 2019-01-28 23:20:07
+ * @modify date 2019-01-28 23:20:07
+ * @desc [menu init]
+ */
+
 import memoizeOne from 'memoize-one';
 import isEqual from 'lodash/isEqual';
 import { formatMessage } from 'umi/locale';
 import Authorized from '@/utils/Authorized';
 import { menu } from '../defaultSettings';
 import { list2tree } from '../utils/tree';
-
-const { check } = Authorized;
 
 // Conversion router to menu.
 function formatter(data, parentAuthority, parentName) {
@@ -29,7 +35,6 @@ function formatter(data, parentAuthority, parentName) {
       if (item.children && item.children.length > 0) {
         result.children = formatter(item.children, result.authority, locale);
       } else {
-        // eslint-disable-next-line no-param-reassign
         delete result.children;
       }
       return result;
@@ -60,7 +65,7 @@ const filterMenuData = menuData => {
   }
   return menuData
     .filter(item => item.name && !item.hideInMenu)
-    .map(item => check(item.authority, getSubMenu(item)))
+    .map(item => Authorized.check(item.authority, getSubMenu(item)))
     .filter(item => item);
 };
 

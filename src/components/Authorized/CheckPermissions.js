@@ -187,5 +187,4 @@ export { checkPermissions };
 
 const check = (authority, target, Exception) =>
   checkPermissions(authority, CURRENT, target, Exception);
-
 export default check;

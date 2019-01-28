@@ -26,7 +26,10 @@ export default [
     authority: ['admin', 'user'],
     routes: [
       // dashboard
-      { path: '/', redirect: '/dashboard/analysis' },
+      {
+        path: '/',
+        redirect: '/dashboard/analysis',
+      },
       {
         path: '/dashboard',
         name: 'dashboard',

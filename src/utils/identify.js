@@ -10,45 +10,40 @@ import memoizeOne from 'memoize-one';
 import isEqual from 'lodash/isEqual';
 import { encrypted, decrypted } from './crypto';
 
-const IDENTIFY = 'IDENTIFY';
+const idKey = 'IDENTIFY';
 const store = localStorage;
 
-let memoKey = Math.random()
-  .toString(36)
-  .substring(2);
-
-function getItem(key) {
-  try {
-    const raw = store.getItem(key);
-
-    if (!raw) {
-      return {};
-    }
-    const dec = decrypted(raw);
-    return JSON.parse(dec) || {};
-  } catch (e) {
-    return {};
-  }
+function randomString() {
+  return Math.random()
+    .toString(36)
+    .substring(2);
 }
 
-const memoizeOneFormatter = memoizeOne((mk, key) => getItem(key), isEqual);
+let memoKey = randomString();
+
+function getItem(key) {
+  const item = store.getItem(key);
+  const buffer = decrypted(item);
+  const obj = JSON.parse(buffer) || {};
+  return obj;
+}
 
 function setItem(key, entity) {
   const enc = encrypted(JSON.stringify(entity));
   return store.setItem(key, enc);
 }
 
+const memoizeOneFormatter = memoizeOne((mk, key) => getItem(key), isEqual);
+
 export function getIdentify() {
-  return memoizeOneFormatter(memoKey, IDENTIFY);
+  return memoizeOneFormatter(memoKey, idKey);
 }
 
 export function setIdentify(identify) {
-  memoKey = Math.random()
-    .toString(36)
-    .substring(2);
-  return setItem(IDENTIFY, identify);
+  memoKey = randomString();
+  return setItem(idKey, identify);
 }
 
 export function unsetIdentify() {
-  return store.removeItem(IDENTIFY);
+  return store.removeItem(idKey);
 }

@@ -120,7 +120,7 @@ export default {
     } else {
       res.send({
         roles: ['finance', 'sys_base', 'user'],
-        permissions: ['finance_report', 'finance_report_upload', 'finance_report_view'],
+        permits: ['finance_report', 'finance_report_upload', 'finance_report_view'],
       });
     }
   },

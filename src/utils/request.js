@@ -5,6 +5,7 @@ import router from 'umi/router';
 import hash from 'hash.js';
 import { isAntdPro } from './utils';
 import { getIdentify } from './identify';
+import { dispatch } from './store';
 
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
@@ -135,8 +136,7 @@ export default function request(url, option) {
     .catch(e => {
       const status = e.name;
       if (status === 401) {
-        /* eslint-disable no-underscore-dangle */
-        window.g_app._store.dispatch({
+        dispatch({
           type: 'login/logout',
         });
         return;

@@ -3,24 +3,12 @@
  * @email [2637309949@qq.com]
  * @create date 2019-01-20 21:17:18
  * @modify date 2019-01-20 21:17:18
- * @desc [getAuthority and setAuthority]
+ * @desc [getAuthority]
  */
 
-function select(state) {
-  return state.global && state.global.permits;
-}
+import store from './store';
 
-export function getAuthority() {
-  let permits = [];
-  // eslint-disable-next-line no-underscore-dangle
-  const store = window.g_app._store;
-  if (store) {
-    permits = select(store.getState()).roles;
-  }
-  return permits;
-}
-
-export function setAuthority(authority) {
-  const proAuthority = typeof authority === 'string' ? [authority] : authority;
-  return localStorage.setItem('antd-pro-authority', JSON.stringify(proAuthority));
+// eslint-disable-next-line import/prefer-default-export
+export function getAuthority(authority) {
+  return store(state => authority || (state && state.global && state.global.permits));
 }

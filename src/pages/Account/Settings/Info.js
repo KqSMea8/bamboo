@@ -75,9 +75,7 @@ class Info extends Component {
   };
 
   resize = () => {
-    if (!this.main) {
-      return;
-    }
+    if (!this.main) return;
     requestAnimationFrame(() => {
       let mode = 'inline';
       const { offsetWidth } = this.main;
@@ -95,9 +93,7 @@ class Info extends Component {
 
   render() {
     const { children, currentUser } = this.props;
-    if (!currentUser.userid) {
-      return '';
-    }
+    if (!currentUser.userid) return '';
     const { mode, selectKey } = this.state;
     return (
       <GridContent>
