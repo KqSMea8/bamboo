@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
 import { formatMessage, FormattedMessage } from 'umi/locale';
-import { Button, Row, Col, Icon, Steps, Card } from 'antd';
+import {
+  Button, Row, Col, Icon, Steps, Card,
+} from 'antd';
 import Result from '@/components/Result';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
 
@@ -25,7 +27,10 @@ const desc1 = (
 );
 
 const desc2 = (
-  <div style={{ fontSize: 12, position: 'relative', left: 42, textAlign: 'left' }}>
+  <div style={{
+    fontSize: 12, position: 'relative', left: 42, textAlign: 'left',
+  }}
+  >
     <div style={{ margin: '8px 0 4px' }}>
       <FormattedMessage id="app.result.success.step2-operator" defaultMessage="Zhou Maomao" />
       <Icon type="dingding-o" style={{ color: '#00A0E9', marginLeft: 8 }} />

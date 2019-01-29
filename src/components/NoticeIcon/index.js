@@ -1,6 +1,8 @@
 import React, { PureComponent, Fragment } from 'react';
 import ReactDOM from 'react-dom';
-import { Icon, Tabs, Badge, Spin } from 'antd';
+import {
+  Icon, Tabs, Badge, Spin,
+} from 'antd';
 import classNames from 'classnames';
 import HeaderDropdown from '../HeaderDropdown';
 import List from './NoticeList';
@@ -122,7 +124,9 @@ export default class NoticeIcon extends PureComponent {
   };
 
   render() {
-    const { className, count, popupVisible, bell } = this.props;
+    const {
+      className, count, popupVisible, bell,
+    } = this.props;
     const { visible } = this.state;
     const noticeButtonClass = classNames(className, styles.noticeButton);
     const notificationBox = this.getNotificationBox();

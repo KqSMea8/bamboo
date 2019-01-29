@@ -1,6 +1,8 @@
 import React, { Component, Suspense } from 'react';
 import { connect } from 'dva';
-import { Row, Col, Icon, Menu, Dropdown } from 'antd';
+import {
+  Row, Col, Icon, Menu, Dropdown,
+} from 'antd';
 
 import GridContent from '@/components/PageHeaderWrapper/GridContent';
 import { getTimeDistance } from '@/utils/utils';
@@ -84,8 +86,8 @@ class Analysis extends Component {
       return '';
     }
     if (
-      rangePickerValue[0].isSame(value[0], 'day') &&
-      rangePickerValue[1].isSame(value[1], 'day')
+      rangePickerValue[0].isSame(value[0], 'day')
+      && rangePickerValue[1].isSame(value[1], 'day')
     ) {
       return styles.currentDate;
     }

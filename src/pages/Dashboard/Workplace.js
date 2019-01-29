@@ -2,7 +2,9 @@ import React, { PureComponent } from 'react';
 import moment from 'moment';
 import { connect } from 'dva';
 import Link from 'umi/link';
-import { Row, Col, Card, List, Avatar } from 'antd';
+import {
+  Row, Col, Card, List, Avatar,
+} from 'antd';
 
 import { Radar } from '@/components/Charts';
 import EditableLinkGroup from '@/components/EditableLinkGroup';
@@ -37,7 +39,9 @@ const links = [
   },
 ];
 
-@connect(({ user, project, activities, chart, loading }) => ({
+@connect(({
+  user, project, activities, chart, loading,
+}) => ({
   currentUser: user.currentUser,
   project,
   activities,
@@ -117,24 +121,23 @@ class Workplace extends PureComponent {
       chart: { radarData },
     } = this.props;
 
-    const pageHeaderContent =
-      currentUser && Object.keys(currentUser).length ? (
-        <div className={styles.pageHeaderContent}>
-          <div className={styles.avatar}>
-            <Avatar size="large" src={currentUser.avatar} />
-          </div>
-          <div className={styles.content}>
-            <div className={styles.contentTitle}>
+    const pageHeaderContent = currentUser && Object.keys(currentUser).length ? (
+      <div className={styles.pageHeaderContent}>
+        <div className={styles.avatar}>
+          <Avatar size="large" src={currentUser.avatar} />
+        </div>
+        <div className={styles.content}>
+          <div className={styles.contentTitle}>
               早安，
-              {currentUser.name}
+            {currentUser.name}
               ，祝你开心每一天！
-            </div>
-            <div>
-              {currentUser.title} |{currentUser.group}
-            </div>
+          </div>
+          <div>
+            {currentUser.title} |{currentUser.group}
           </div>
         </div>
-      ) : null;
+      </div>
+    ) : null;
 
     const extraContent = (
       <div className={styles.extraContent}>

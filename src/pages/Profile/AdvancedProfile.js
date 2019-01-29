@@ -122,14 +122,13 @@ const popoverContent = (
   </div>
 );
 
-const customDot = (dot, { status }) =>
-  status === 'process' ? (
-    <Popover placement="topLeft" arrowPointAtCenter content={popoverContent}>
-      {dot}
-    </Popover>
-  ) : (
-    dot
-  );
+const customDot = (dot, { status }) => (status === 'process' ? (
+  <Popover placement="topLeft" arrowPointAtCenter content={popoverContent}>
+    {dot}
+  </Popover>
+) : (
+  dot
+));
 
 const operationTabList = [
   {
@@ -161,12 +160,11 @@ const columns = [
     title: '执行结果',
     dataIndex: 'status',
     key: 'status',
-    render: text =>
-      text === 'agree' ? (
-        <Badge status="success" text="成功" />
-      ) : (
-        <Badge status="error" text="驳回" />
-      ),
+    render: text => (text === 'agree' ? (
+      <Badge status="success" text="成功" />
+    ) : (
+      <Badge status="error" text="驳回" />
+    )),
   },
   {
     title: '操作时间',

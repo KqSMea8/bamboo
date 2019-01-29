@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
-import { Row, Col, Card, Tabs, DatePicker } from 'antd';
+import {
+  Row, Col, Card, Tabs, DatePicker,
+} from 'antd';
 import { FormattedMessage, formatMessage } from 'umi/locale';
 import numeral from 'numeral';
 import styles from './Analysis.less';
@@ -17,7 +19,9 @@ for (let i = 0; i < 7; i += 1) {
 }
 
 const SalesCard = memo(
-  ({ rangePickerValue, salesData, isActive, handleRangePickerChange, loading, selectDate }) => (
+  ({
+    rangePickerValue, salesData, isActive, handleRangePickerChange, loading, selectDate,
+  }) => (
     <Card loading={loading} bordered={false} bodyStyle={{ padding: 0 }}>
       <div className={styles.salesCard}>
         <Tabs
@@ -144,7 +148,7 @@ const SalesCard = memo(
         </Tabs>
       </div>
     </Card>
-  )
+  ),
 );
 
 export default SalesCard;

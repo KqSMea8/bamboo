@@ -17,7 +17,9 @@ class Center extends PureComponent {
       <List
         className={stylesProjects.coverCardList}
         rowKey="id"
-        grid={{ gutter: 24, xxl: 3, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }}
+        grid={{
+          gutter: 24, xxl: 3, xl: 2, lg: 2, md: 2, sm: 2, xs: 1,
+        }}
         dataSource={list}
         renderItem={item => (
           <List.Item>

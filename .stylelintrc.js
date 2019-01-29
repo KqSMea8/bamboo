@@ -1,5 +1,6 @@
-{
-  "extends": ["stylelint-config-standard", "stylelint-config-prettier"],
+module.exports = {
+  "extends": ["stylelint-config-standard"],
+  "ignoreFiles": ["**/*.js"],
   "rules": {
     "declaration-empty-line-before": null,
     "no-descending-specificity": null,

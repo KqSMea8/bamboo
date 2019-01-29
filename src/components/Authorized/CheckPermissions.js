@@ -11,9 +11,9 @@ import { CURRENT } from './renderAuthorize';
 
 function isPromise(obj) {
   return (
-    !!obj &&
-    (typeof obj === 'object' || typeof obj === 'function') &&
-    typeof obj.then === 'function'
+    !!obj
+    && (typeof obj === 'object' || typeof obj === 'function')
+    && typeof obj.then === 'function'
   );
 }
 
@@ -137,8 +137,8 @@ function checkPermissions(authority, currentAuthority, target, Exception) {
 
   if (
     !(
-      (Array.isArray(authority) || typeof authority === 'function') &&
-      typeof currentAuthority === 'object'
+      (Array.isArray(authority) || typeof authority === 'function')
+      && typeof currentAuthority === 'object'
     )
   ) {
     return Exception;
@@ -171,11 +171,10 @@ function checkPermissions(authority, currentAuthority, target, Exception) {
     const allPermitsExisted = currentAuthority.permits.find(x => x.toUpperCase() === 'ALL');
 
     // allRolesExisted && allPermitsExisted === admin
-    const existed =
-      (allRolesExisted && allPermitsExisted) ||
-      (rolesExisted && permitsExisted) ||
-      (allRolesExisted && permitsExisted) ||
-      (rolesExisted && allPermitsExisted);
+    const existed = (allRolesExisted && allPermitsExisted)
+      || (rolesExisted && permitsExisted)
+      || (allRolesExisted && permitsExisted)
+      || (rolesExisted && allPermitsExisted);
     if (existed) {
       return target;
     }
@@ -185,6 +184,5 @@ function checkPermissions(authority, currentAuthority, target, Exception) {
 
 export { checkPermissions };
 
-const check = (authority, target, Exception) =>
-  checkPermissions(authority, CURRENT, target, Exception);
+const check = (authority, target, Exception) => checkPermissions(authority, CURRENT, target, Exception);
 export default check;

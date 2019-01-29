@@ -6,7 +6,9 @@ import { Pie } from '@/components/Charts';
 import Yuan from '@/utils/Yuan';
 
 const ProportionSales = memo(
-  ({ dropdownGroup, salesType, loading, salesPieData, handleChangeSalesType }) => (
+  ({
+    dropdownGroup, salesType, loading, salesPieData, handleChangeSalesType,
+  }) => (
     <Card
       loading={loading}
       className={styles.salesCard}
@@ -52,7 +54,7 @@ const ProportionSales = memo(
         style={{ padding: '8px 0' }}
       />
     </Card>
-  )
+  ),
 );
 
 export default ProportionSales;

@@ -42,14 +42,14 @@ class Exception extends React.PureComponent {
           <h1>{title || config[pageType].title}</h1>
           <div className={styles.desc}>{desc || config[pageType].desc}</div>
           <div className={styles.actions}>
-            {actions ||
-              createElement(
+            {actions
+              || createElement(
                 linkElement,
                 {
                   to: redirect,
                   href: redirect,
                 },
-                <Button type="primary">{backText}</Button>
+                <Button type="primary">{backText}</Button>,
               )}
           </div>
         </div>

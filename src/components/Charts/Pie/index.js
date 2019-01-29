@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Chart, Tooltip, Geom, Coord } from 'bizcharts';
+import {
+  Chart, Tooltip, Geom, Coord,
+} from 'bizcharts';
 import { DataView } from '@antv/data-set';
 import { Divider } from 'antd';
 import classNames from 'classnames';
@@ -24,7 +26,7 @@ class Pie extends Component {
       () => {
         this.requestRef = requestAnimationFrame(() => this.resize());
       },
-      { passive: true }
+      { passive: true },
     );
   }
 

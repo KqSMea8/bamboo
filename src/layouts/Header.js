@@ -45,7 +45,7 @@ class HeaderView extends PureComponent {
     message.success(
       `${formatMessage({ id: 'component.noticeIcon.cleared' })} ${formatMessage({
         id: `component.globalHeader.${type}`,
-      })}`
+      })}`,
     );
     const { dispatch } = this.props;
     dispatch({
@@ -150,7 +150,9 @@ class HeaderView extends PureComponent {
   }
 }
 
-export default connect(({ user, global, setting, loading }) => ({
+export default connect(({
+  user, global, setting, loading,
+}) => ({
   currentUser: user.currentUser,
   collapsed: global.collapsed,
   fetchingMoreNotices: loading.effects['global/fetchMoreNotices'],

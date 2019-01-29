@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, Row, Col } from 'antd';
+import {
+  Form, Input, Button, Row, Col,
+} from 'antd';
 import omit from 'omit.js';
 import styles from './index.less';
 import ItemMap from './map';
@@ -44,7 +46,9 @@ class WrapFormItem extends Component {
     }
   };
 
-  getFormItemOptions = ({ onChange, defaultValue, customprops, rules }) => {
+  getFormItemOptions = ({
+    onChange, defaultValue, customprops, rules,
+  }) => {
     const options = {
       rules: rules || customprops.rules,
     };

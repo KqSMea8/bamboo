@@ -3,14 +3,13 @@ import range from 'lodash/range';
 import { mount } from 'enzyme';
 import AvatarList from './index';
 
-const renderItems = numItems =>
-  range(numItems).map(i => (
-    <AvatarList.Item
-      key={i}
-      tips="Jake"
-      src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png"
-    />
-  ));
+const renderItems = numItems => range(numItems).map(i => (
+  <AvatarList.Item
+    key={i}
+    tips="Jake"
+    src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png"
+  />
+));
 
 describe('AvatarList', () => {
   it('renders all items', () => {

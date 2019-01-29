@@ -23,9 +23,7 @@ function ergodicRoutes(routes, authKey, authority) {
 }
 
 export function patchRoutes(routes) {
-  Object.keys(authRoutes).map(authKey =>
-    ergodicRoutes(routes, authKey, authRoutes[authKey].authority)
-  );
+  Object.keys(authRoutes).map(authKey => ergodicRoutes(routes, authKey, authRoutes[authKey].authority));
   window.g_routes = routes;
 }
 
@@ -39,6 +37,6 @@ export function render(oldRender) {
       },
       () => {
         oldRender();
-      }
+      },
     );
 }

@@ -6,7 +6,9 @@ import { Checkbox, Alert, Icon } from 'antd';
 import Login from '@/components/Login';
 import styles from './Login.less';
 
-const { Tab, UserName, Password, Mobile, Captcha, Submit } = Login;
+const {
+  Tab, UserName, Password, Mobile, Captcha, Submit,
+} = Login;
 
 @connect(({ login, loading }) => ({
   login,
@@ -22,22 +24,21 @@ class LoginPage extends Component {
     this.setState({ type });
   };
 
-  onGetCaptcha = () =>
-    new Promise((resolve, reject) => {
-      this.loginForm.validateFields(['mobile'], {}, (err, values) => {
-        if (err) {
-          reject(err);
-        } else {
-          const { dispatch } = this.props;
-          dispatch({
-            type: 'login/getCaptcha',
-            payload: values.mobile,
-          })
-            .then(resolve)
-            .catch(reject);
-        }
-      });
+  onGetCaptcha = () => new Promise((resolve, reject) => {
+    this.loginForm.validateFields(['mobile'], {}, (err, values) => {
+      if (err) {
+        reject(err);
+      } else {
+        const { dispatch } = this.props;
+        dispatch({
+          type: 'login/getCaptcha',
+          payload: values.mobile,
+        })
+          .then(resolve)
+          .catch(reject);
+      }
     });
+  });
 
   handleSubmit = (err, values) => {
     const { type } = this.state;
@@ -77,10 +78,10 @@ class LoginPage extends Component {
           }}
         >
           <Tab key="account" tab={formatMessage({ id: 'app.login.tab-login-credentials' })}>
-            {login.status === 'error' &&
-              login.type === 'account' &&
-              !submitting &&
-              this.renderMessage(formatMessage({ id: 'app.login.message-invalid-credentials' }))}
+            {login.status === 'error'
+              && login.type === 'account'
+              && !submitting
+              && this.renderMessage(formatMessage({ id: 'app.login.message-invalid-credentials' }))}
             <UserName
               name="username"
               placeholder={`${formatMessage({ id: 'app.login.userName' })}: admin or user`}
@@ -104,11 +105,11 @@ class LoginPage extends Component {
             />
           </Tab>
           <Tab key="mobile" tab={formatMessage({ id: 'app.login.tab-login-mobile' })}>
-            {login.status === 'error' &&
-              login.type === 'mobile' &&
-              !submitting &&
-              this.renderMessage(
-                formatMessage({ id: 'app.login.message-invalid-verification-code' })
+            {login.status === 'error'
+              && login.type === 'mobile'
+              && !submitting
+              && this.renderMessage(
+                formatMessage({ id: 'app.login.message-invalid-verification-code' }),
               )}
             <Mobile
               name="mobile"

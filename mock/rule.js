@@ -48,7 +48,7 @@ function getRule(req, res, u) {
     let filterDataSource = [];
     status.forEach(s => {
       filterDataSource = filterDataSource.concat(
-        dataSource.filter(data => parseInt(data.status, 10) === parseInt(s[0], 10))
+        dataSource.filter(data => parseInt(data.status, 10) === parseInt(s[0], 10)),
       );
     });
     dataSource = filterDataSource;
@@ -82,7 +82,9 @@ function postRule(req, res, u, b) {
   }
 
   const body = (b && b.body) || req.body;
-  const { method, name, desc, key } = body;
+  const {
+    method, name, desc, key,
+  } = body;
 
   switch (method) {
     /* eslint no-case-declarations:0 */

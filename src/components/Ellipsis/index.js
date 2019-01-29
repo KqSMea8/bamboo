@@ -13,14 +13,13 @@ const TooltipOverlayStyle = {
   wordWrap: 'break-word',
 };
 
-export const getStrFullLength = (str = '') =>
-  str.split('').reduce((pre, cur) => {
-    const charCode = cur.charCodeAt(0);
-    if (charCode >= 0 && charCode <= 128) {
-      return pre + 1;
-    }
-    return pre + 2;
-  }, 0);
+export const getStrFullLength = (str = '') => str.split('').reduce((pre, cur) => {
+  const charCode = cur.charCodeAt(0);
+  if (charCode >= 0 && charCode <= 128) {
+    return pre + 1;
+  }
+  return pre + 2;
+}, 0);
 
 export const cutStrByFullLength = (str = '', maxLength) => {
   let showLength = 0;
@@ -38,7 +37,9 @@ export const cutStrByFullLength = (str = '', maxLength) => {
   }, '');
 };
 
-const getTooltip = ({ tooltip, overlayStyle, title, children }) => {
+const getTooltip = ({
+  tooltip, overlayStyle, title, children,
+}) => {
   if (tooltip) {
     const props = tooltip === true ? { overlayStyle, title } : { ...tooltip, overlayStyle, title };
     return <Tooltip {...props}>{children}</Tooltip>;
@@ -46,7 +47,9 @@ const getTooltip = ({ tooltip, overlayStyle, title, children }) => {
   return children;
 };
 
-const EllipsisText = ({ text, length, tooltip, fullWidthRecognition, ...other }) => {
+const EllipsisText = ({
+  text, length, tooltip, fullWidthRecognition, ...other
+}) => {
   if (typeof text !== 'string') {
     throw new Error('Ellipsis children must be string.');
   }

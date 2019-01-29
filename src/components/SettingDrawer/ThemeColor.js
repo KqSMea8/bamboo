@@ -14,7 +14,9 @@ const Tag = ({ color, check, ...rest }) => (
   </div>
 );
 
-const ThemeColor = ({ colors, title, value, onChange }) => {
+const ThemeColor = ({
+  colors, title, value, onChange,
+}) => {
   let colorList = colors;
   if (!colors) {
     colorList = [

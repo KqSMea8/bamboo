@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { formatMessage, FormattedMessage } from 'umi/locale';
-import { Form, Input, Upload, Select, Button } from 'antd';
+import {
+  Form, Input, Upload, Select, Button,
+} from 'antd';
 import { connect } from 'dva';
 import styles from './BaseView.less';
 import GeographicView from './GeographicView';
@@ -122,7 +124,7 @@ class BaseView extends Component {
                 <Input.TextArea
                   placeholder={formatMessage({ id: 'app.settings.basic.profile-placeholder' })}
                   rows={4}
-                />
+                />,
               )}
             </FormItem>
             <FormItem label={formatMessage({ id: 'app.settings.basic.country' })}>
@@ -136,7 +138,7 @@ class BaseView extends Component {
               })(
                 <Select style={{ maxWidth: 220 }}>
                   <Option value="China">中国</Option>
-                </Select>
+                </Select>,
               )}
             </FormItem>
             <FormItem label={formatMessage({ id: 'app.settings.basic.geographic' })}>

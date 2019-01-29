@@ -4,24 +4,23 @@ import classNames from 'classnames';
 
 import styles from './index.less';
 
-const avatarSizeToClassName = size =>
-  classNames(styles.avatarItem, {
-    [styles.avatarItemLarge]: size === 'large',
-    [styles.avatarItemSmall]: size === 'small',
-    [styles.avatarItemMini]: size === 'mini',
-  });
+const avatarSizeToClassName = size => classNames(styles.avatarItem, {
+  [styles.avatarItemLarge]: size === 'large',
+  [styles.avatarItemSmall]: size === 'small',
+  [styles.avatarItemMini]: size === 'mini',
+});
 
-const AvatarList = ({ children, size, maxLength, excessItemsStyle, ...other }) => {
+const AvatarList = ({
+  children, size, maxLength, excessItemsStyle, ...other
+}) => {
   const numOfChildren = React.Children.count(children);
   const numToShow = maxLength >= numOfChildren ? numOfChildren : maxLength;
 
   const childrenWithProps = React.Children.toArray(children)
     .slice(0, numToShow)
-    .map(child =>
-      React.cloneElement(child, {
-        size,
-      })
-    );
+    .map(child => React.cloneElement(child, {
+      size,
+    }));
 
   if (numToShow < numOfChildren) {
     const cls = avatarSizeToClassName(size);
@@ -29,7 +28,7 @@ const AvatarList = ({ children, size, maxLength, excessItemsStyle, ...other }) =
     childrenWithProps.push(
       <li key="exceed" className={cls}>
         <Avatar size={size} style={excessItemsStyle}>{`+${numOfChildren - maxLength}`}</Avatar>
-      </li>
+      </li>,
     );
   }
 
@@ -40,7 +39,9 @@ const AvatarList = ({ children, size, maxLength, excessItemsStyle, ...other }) =
   );
 };
 
-const Item = ({ src, size, tips, onClick = () => {} }) => {
+const Item = ({
+  src, size, tips, onClick = () => {},
+}) => {
   const cls = avatarSizeToClassName(size);
 
   return (

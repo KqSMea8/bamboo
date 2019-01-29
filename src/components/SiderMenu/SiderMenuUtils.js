@@ -17,13 +17,12 @@ export const getFlatMenuKeys = menuData => {
   return keys;
 };
 
-export const getMenuMatches = (flatMenuKeys, path) =>
-  flatMenuKeys.filter(item => {
-    if (item) {
-      return pathToRegexp(item).test(path);
-    }
-    return false;
-  });
+export const getMenuMatches = (flatMenuKeys, path) => flatMenuKeys.filter(item => {
+  if (item) {
+    return pathToRegexp(item).test(path);
+  }
+  return false;
+});
 /**
  * 获得菜单子节点
  * @memberof SiderMenu

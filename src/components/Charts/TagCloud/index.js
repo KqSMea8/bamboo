@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Chart, Geom, Coord, Shape, Tooltip } from 'bizcharts';
+import {
+  Chart, Geom, Coord, Shape, Tooltip,
+} from 'bizcharts';
 import DataSet from '@antv/data-set';
 import Debounce from 'lodash-decorators/debounce';
 import Bind from 'lodash-decorators/bind';
@@ -63,7 +65,7 @@ class TagCloud extends Component {
           fill: cfg.color,
           textBaseline: 'Alphabetic',
         },
-        cfg.style
+        cfg.style,
       );
     }
 

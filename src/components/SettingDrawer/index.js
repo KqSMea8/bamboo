@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
-import { Select, message, Drawer, List, Switch, Divider, Icon, Button, Alert, Tooltip } from 'antd';
+import {
+  Select, message, Drawer, List, Switch, Divider, Icon, Button, Alert, Tooltip,
+} from 'antd';
 import { formatMessage } from 'umi/locale';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { connect } from 'dva';
@@ -30,7 +32,9 @@ class SettingDrawer extends PureComponent {
 
   getLayoutSetting = () => {
     const {
-      setting: { contentWidth, fixedHeader, layout, autoHideHeader, fixSiderbar },
+      setting: {
+        contentWidth, fixedHeader, layout, autoHideHeader, fixSiderbar,
+      },
     } = this.props;
     return [
       {
@@ -128,7 +132,9 @@ class SettingDrawer extends PureComponent {
 
   render() {
     const { setting } = this.props;
-    const { navTheme, primaryColor, layout, colorWeak } = setting;
+    const {
+      navTheme, primaryColor, layout, colorWeak,
+    } = setting;
     const { collapse } = this.state;
     return (
       <Drawer

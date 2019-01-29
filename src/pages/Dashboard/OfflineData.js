@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
-import { Card, Tabs, Row, Col } from 'antd';
+import {
+  Card, Tabs, Row, Col,
+} from 'antd';
 import { formatMessage, FormattedMessage } from 'umi/locale';
 import styles from './Analysis.less';
 import { TimelineChart, Pie } from '@/components/Charts';
@@ -35,7 +37,9 @@ const CustomTab = ({ data, currentTabKey: currentKey }) => (
 const { TabPane } = Tabs;
 
 const OfflineData = memo(
-  ({ activeKey, loading, offlineData, offlineChartData, handleTabChange }) => (
+  ({
+    activeKey, loading, offlineData, offlineChartData, handleTabChange,
+  }) => (
     <Card
       loading={loading}
       className={styles.offlineCard}
@@ -59,7 +63,7 @@ const OfflineData = memo(
         ))}
       </Tabs>
     </Card>
-  )
+  ),
 );
 
 export default OfflineData;

@@ -7,7 +7,9 @@
  */
 import { routerRedux } from 'dva/router';
 import { stringify } from 'qs';
-import { obtainToken, getFakeCaptcha, getPermits, getMenuData, getIdentity } from '@/services/api';
+import {
+  obtainToken, getFakeCaptcha, getPermits, getMenuData, getIdentity,
+} from '@/services/api';
 import { setIdentify, unsetIdentify } from '@/utils/identify';
 import { getPageQuery } from '@/utils/utils';
 import { reloadAuthorized } from '@/utils/Authorized';
@@ -18,7 +20,7 @@ export default {
     status: undefined,
   },
   effects: {
-    *login({ payload }, { call, put }) {
+    * login({ payload }, { call, put }) {
       const token = yield call(obtainToken, payload);
       // Login successfully
       if (token) {
@@ -56,11 +58,11 @@ export default {
       }
     },
 
-    *getCaptcha({ payload }, { call }) {
+    * getCaptcha({ payload }, { call }) {
       yield call(getFakeCaptcha, payload);
     },
 
-    *logout(_, { put }) {
+    * logout(_, { put }) {
       unsetIdentify();
       reloadAuthorized();
       yield put(
@@ -69,7 +71,7 @@ export default {
           search: stringify({
             redirect: window.location.href,
           }),
-        })
+        }),
       );
     },
   },

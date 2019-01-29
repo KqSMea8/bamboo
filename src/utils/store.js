@@ -6,7 +6,7 @@
  * @desc [window store]
  */
 
-export default function(select) {
+export default function (select) {
   // eslint-disable-next-line no-underscore-dangle
   const store = window.g_app._store;
   if (store) {

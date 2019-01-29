@@ -112,17 +112,17 @@ class BasicLayout extends React.PureComponent {
     if (!currRouterData) {
       return title;
     }
-    const pageName = menu.disableLocal
-      ? currRouterData.name
-      : formatMessage({
-          id: currRouterData.locale || currRouterData.name,
-          defaultMessage: currRouterData.name,
-        });
+    const pageName = menu.disableLocal ? currRouterData.name : formatMessage({
+      id: currRouterData.locale || currRouterData.name,
+      defaultMessage: currRouterData.name,
+    });
     return `${pageName} - ${title}`;
   };
 
   getLayoutStyle = () => {
-    const { fixSiderbar, isMobile, collapsed, layout } = this.props;
+    const {
+      fixSiderbar, isMobile, collapsed, layout,
+    } = this.props;
     if (fixSiderbar && layout !== 'topmenu' && !isMobile) {
       return {
         paddingLeft: collapsed ? '80px' : '256px',

@@ -1,5 +1,7 @@
 import React, { memo } from 'react';
-import { Row, Col, Table, Tooltip, Card, Icon } from 'antd';
+import {
+  Row, Col, Table, Tooltip, Card, Icon,
+} from 'antd';
 import { FormattedMessage } from 'umi/locale';
 import Trend from '@/components/Trend';
 import numeral from 'numeral';
@@ -42,7 +44,9 @@ const columns = [
   },
 ];
 
-const TopSearch = memo(({ loading, visitData2, searchData, dropdownGroup }) => (
+const TopSearch = memo(({
+  loading, visitData2, searchData, dropdownGroup,
+}) => (
   <Card
     loading={loading}
     bordered={false}

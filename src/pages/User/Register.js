@@ -3,7 +3,9 @@ import { connect } from 'dva';
 import { formatMessage, FormattedMessage } from 'umi/locale';
 import Link from 'umi/link';
 import router from 'umi/router';
-import { Form, Input, Button, Select, Row, Col, Popover, Progress } from 'antd';
+import {
+  Form, Input, Button, Select, Row, Col, Popover, Progress,
+} from 'antd';
 import styles from './Register.less';
 
 const FormItem = Form.Item;
@@ -176,7 +178,9 @@ class Register extends Component {
   render() {
     const { form, submitting } = this.props;
     const { getFieldDecorator } = form;
-    const { count, prefix, help, visible } = this.state;
+    const {
+      count, prefix, help, visible,
+    } = this.state;
     return (
       <div className={styles.main}>
         <h3>
@@ -196,7 +200,7 @@ class Register extends Component {
                 },
               ],
             })(
-              <Input size="large" placeholder={formatMessage({ id: 'form.email.placeholder' })} />
+              <Input size="large" placeholder={formatMessage({ id: 'form.email.placeholder' })} />,
             )}
           </FormItem>
           <FormItem help={help}>
@@ -226,7 +230,7 @@ class Register extends Component {
                   size="large"
                   type="password"
                   placeholder={formatMessage({ id: 'form.password.placeholder' })}
-                />
+                />,
               )}
             </Popover>
           </FormItem>
@@ -246,7 +250,7 @@ class Register extends Component {
                 size="large"
                 type="password"
                 placeholder={formatMessage({ id: 'form.confirm-password.placeholder' })}
-              />
+              />,
             )}
           </FormItem>
           <FormItem>
@@ -276,7 +280,7 @@ class Register extends Component {
                   size="large"
                   style={{ width: '80%' }}
                   placeholder={formatMessage({ id: 'form.phone-number.placeholder' })}
-                />
+                />,
               )}
             </InputGroup>
           </FormItem>
@@ -294,7 +298,7 @@ class Register extends Component {
                   <Input
                     size="large"
                     placeholder={formatMessage({ id: 'form.verification-code.placeholder' })}
-                  />
+                  />,
                 )}
               </Col>
               <Col span={8}>

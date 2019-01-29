@@ -6,7 +6,9 @@ import styles from './index.less';
 
 const { CheckableTag } = Tag;
 
-const TagSelectOption = ({ children, checked, onChange, value }) => (
+const TagSelectOption = ({
+  children, checked, onChange, value,
+}) => (
   <CheckableTag checked={checked} key={value} onChange={state => onChange(value, state)}>
     {children}
   </CheckableTag>
@@ -81,14 +83,15 @@ class TagSelect extends Component {
     });
   };
 
-  isTagSelectOption = node =>
-    node &&
-    node.type &&
-    (node.type.isTagSelectOption || node.type.displayName === 'TagSelectOption');
+  isTagSelectOption = node => node
+    && node.type
+    && (node.type.isTagSelectOption || node.type.displayName === 'TagSelectOption');
 
   render() {
     const { value, expand } = this.state;
-    const { children, hideCheckAll, className, style, expandable } = this.props;
+    const {
+      children, hideCheckAll, className, style, expandable,
+    } = this.props;
 
     const checkedAll = this.getAllTags().length === value.length;
 
@@ -103,8 +106,8 @@ class TagSelect extends Component {
             全部
           </CheckableTag>
         )}
-        {value &&
-          React.Children.map(children, child => {
+        {value
+          && React.Children.map(children, child => {
             if (this.isTagSelectOption(child)) {
               return React.cloneElement(child, {
                 key: `tag-select-${child.props.value}`,

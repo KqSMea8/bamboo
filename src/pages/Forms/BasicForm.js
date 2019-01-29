@@ -96,7 +96,7 @@ class BasicForms extends PureComponent {
                     formatMessage({ id: 'form.date.placeholder.start' }),
                     formatMessage({ id: 'form.date.placeholder.end' }),
                   ]}
-                />
+                />,
               )}
             </FormItem>
             <FormItem {...formItemLayout} label={<FormattedMessage id="form.goal.label" />}>
@@ -112,7 +112,7 @@ class BasicForms extends PureComponent {
                   style={{ minHeight: 32 }}
                   placeholder={formatMessage({ id: 'form.goal.placeholder' })}
                   rows={4}
-                />
+                />,
               )}
             </FormItem>
             <FormItem {...formItemLayout} label={<FormattedMessage id="form.standard.label" />}>
@@ -128,7 +128,7 @@ class BasicForms extends PureComponent {
                   style={{ minHeight: 32 }}
                   placeholder={formatMessage({ id: 'form.standard.placeholder' })}
                   rows={4}
-                />
+                />,
               )}
             </FormItem>
             <FormItem
@@ -146,7 +146,7 @@ class BasicForms extends PureComponent {
               }
             >
               {getFieldDecorator('client')(
-                <Input placeholder={formatMessage({ id: 'form.client.placeholder' })} />
+                <Input placeholder={formatMessage({ id: 'form.client.placeholder' })} />,
               )}
             </FormItem>
             <FormItem
@@ -161,7 +161,7 @@ class BasicForms extends PureComponent {
               }
             >
               {getFieldDecorator('invites')(
-                <Input placeholder={formatMessage({ id: 'form.invites.placeholder' })} />
+                <Input placeholder={formatMessage({ id: 'form.invites.placeholder' })} />,
               )}
             </FormItem>
             <FormItem
@@ -180,7 +180,7 @@ class BasicForms extends PureComponent {
                   placeholder={formatMessage({ id: 'form.weight.placeholder' })}
                   min={0}
                   max={100}
-                />
+                />,
               )}
               <span className="ant-form-text">%</span>
             </FormItem>
@@ -203,7 +203,7 @@ class BasicForms extends PureComponent {
                     <Radio value="3">
                       <FormattedMessage id="form.public.radio.private" />
                     </Radio>
-                  </Radio.Group>
+                  </Radio.Group>,
                 )}
                 <FormItem style={{ marginBottom: 0 }}>
                   {getFieldDecorator('publicUsers')(
@@ -224,7 +224,7 @@ class BasicForms extends PureComponent {
                       <Option value="3">
                         <FormattedMessage id="form.publicUsers.option.C" />
                       </Option>
-                    </Select>
+                    </Select>,
                   )}
                 </FormItem>
               </div>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'dva';
-import { Form, Input, Button, Alert, Divider } from 'antd';
+import {
+  Form, Input, Button, Alert, Divider,
+} from 'antd';
 import router from 'umi/router';
 import { digitUppercase } from '@/utils/utils';
 import styles from './style.less';
@@ -21,7 +23,9 @@ const formItemLayout = {
 @Form.create()
 class Step2 extends React.PureComponent {
   render() {
-    const { form, data, dispatch, submitting } = this.props;
+    const {
+      form, data, dispatch, submitting,
+    } = this.props;
     const { getFieldDecorator, validateFields } = form;
     const onPrev = () => {
       router.push('/form/step-form/info');

@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'dva';
-import { Form, Card, Select, List, Tag, Icon, Row, Col, Button } from 'antd';
+import {
+  Form, Card, Select, List, Tag, Icon, Row, Col, Button,
+} from 'antd';
 
 import TagSelect from '@/components/TagSelect';
 import StandardFormRow from '@/components/StandardFormRow';
@@ -104,20 +106,19 @@ class SearchList extends Component {
       },
     };
 
-    const loadMore =
-      list.length > 0 ? (
-        <div style={{ textAlign: 'center', marginTop: 16 }}>
-          <Button onClick={this.fetchMore} style={{ paddingLeft: 48, paddingRight: 48 }}>
-            {loading ? (
-              <span>
-                <Icon type="loading" /> 加载中...
-              </span>
-            ) : (
-              '加载更多'
-            )}
-          </Button>
-        </div>
-      ) : null;
+    const loadMore = list.length > 0 ? (
+      <div style={{ textAlign: 'center', marginTop: 16 }}>
+        <Button onClick={this.fetchMore} style={{ paddingLeft: 48, paddingRight: 48 }}>
+          {loading ? (
+            <span>
+              <Icon type="loading" /> 加载中...
+            </span>
+          ) : (
+            '加载更多'
+          )}
+        </Button>
+      </div>
+    ) : null;
 
     return (
       <Fragment>
@@ -139,7 +140,7 @@ class SearchList extends Component {
                     <TagSelect.Option value="cat10">类目十</TagSelect.Option>
                     <TagSelect.Option value="cat11">类目十一</TagSelect.Option>
                     <TagSelect.Option value="cat12">类目十二</TagSelect.Option>
-                  </TagSelect>
+                  </TagSelect>,
                 )}
               </FormItem>
             </StandardFormRow>
@@ -160,7 +161,7 @@ class SearchList extends Component {
                             {owner.name}
                           </Option>
                         ))}
-                      </Select>
+                      </Select>,
                     )}
                     <a className={styles.selfTrigger} onClick={this.setOwner}>
                       只看自己的
@@ -176,7 +177,7 @@ class SearchList extends Component {
                     {getFieldDecorator('user', {})(
                       <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
                         <Option value="lisa">李三</Option>
-                      </Select>
+                      </Select>,
                     )}
                   </FormItem>
                 </Col>
@@ -185,7 +186,7 @@ class SearchList extends Component {
                     {getFieldDecorator('rate', {})(
                       <Select placeholder="不限" style={{ maxWidth: 200, width: '100%' }}>
                         <Option value="good">优秀</Option>
-                      </Select>
+                      </Select>,
                     )}
                   </FormItem>
                 </Col>

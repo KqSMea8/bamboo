@@ -1,4 +1,6 @@
-import { queryNotices, getIdentity, getPermits, getMenuData } from '@/services/api';
+import {
+  queryNotices, getIdentity, getPermits, getMenuData,
+} from '@/services/api';
 import { reloadAuthorized } from '@/utils/Authorized';
 
 export default {
@@ -10,7 +12,7 @@ export default {
     loadedAllNotices: false,
   },
   effects: {
-    *query(_, { call, put }) {
+    * query(_, { call, put }) {
       // ***********************************************
       // System setup base data for other components
       const identify = yield call(getIdentity);
@@ -23,7 +25,7 @@ export default {
       const menuList = yield call(getMenuData);
       yield put({ type: 'menu/save', payload: menuList });
     },
-    *fetchNotices(_, { call, put, select }) {
+    * fetchNotices(_, { call, put, select }) {
       const data = yield call(queryNotices);
       const loadedAllNotices = data && data.length && data[data.length - 1] === null;
       yield put({
@@ -35,7 +37,7 @@ export default {
         payload: data.filter(item => item),
       });
       const unreadCount = yield select(
-        state => state.global.notices.filter(item => !item.read).length
+        state => state.global.notices.filter(item => !item.read).length,
       );
       yield put({
         type: 'user/changeNotifyCount',
@@ -45,7 +47,7 @@ export default {
         },
       });
     },
-    *fetchMoreNotices({ payload }, { call, put, select }) {
+    * fetchMoreNotices({ payload }, { call, put, select }) {
       const data = yield call(queryNotices, payload);
       const loadedAllNotices = data && data.length && data[data.length - 1] === null;
       yield put({
@@ -57,7 +59,7 @@ export default {
         payload: data.filter(item => item),
       });
       const unreadCount = yield select(
-        state => state.global.notices.filter(item => !item.read).length
+        state => state.global.notices.filter(item => !item.read).length,
       );
       yield put({
         type: 'user/changeNotifyCount',
@@ -67,14 +69,14 @@ export default {
         },
       });
     },
-    *clearNotices({ payload }, { put, select }) {
+    * clearNotices({ payload }, { put, select }) {
       yield put({
         type: 'saveClearedNotices',
         payload,
       });
       const count = yield select(state => state.global.notices.length);
       const unreadCount = yield select(
-        state => state.global.notices.filter(item => !item.read).length
+        state => state.global.notices.filter(item => !item.read).length,
       );
       yield put({
         type: 'user/changeNotifyCount',
@@ -84,16 +86,14 @@ export default {
         },
       });
     },
-    *changeNoticeReadState({ payload }, { put, select }) {
-      const notices = yield select(state =>
-        state.global.notices.map(item => {
-          const notice = { ...item };
-          if (notice.id === payload) {
-            notice.read = true;
-          }
-          return notice;
-        })
-      );
+    * changeNoticeReadState({ payload }, { put, select }) {
+      const notices = yield select(state => state.global.notices.map(item => {
+        const notice = { ...item };
+        if (notice.id === payload) {
+          notice.read = true;
+        }
+        return notice;
+      }));
       yield put({
         type: 'saveNotices',
         payload: notices,

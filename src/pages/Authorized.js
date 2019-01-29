@@ -15,14 +15,13 @@ import Redirect from 'umi/redirect';
 const Authority = getAuthority();
 const Authorized = RenderAuthorized(Authority);
 
-const AuthorizedHost = ({ querying, children }) =>
-  querying ? (
-    <PageLoading />
-  ) : (
-    <Authorized authority={children.props.route.authority} noMatch={<Redirect to="/user/login" />}>
-      {children}
-    </Authorized>
-  );
+const AuthorizedHost = ({ querying, children }) => (querying ? (
+  <PageLoading />
+) : (
+  <Authorized authority={children.props.route.authority} noMatch={<Redirect to="/user/login" />}>
+    {children}
+  </Authorized>
+));
 export default connect(({ loading }) => ({ querying: loading.effects['global/query'] }))(
-  AuthorizedHost
+  AuthorizedHost,
 );

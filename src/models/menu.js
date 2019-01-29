@@ -31,7 +31,9 @@ function formatter(data, parentAuthority, parentName) {
       const name = menu.disableLocal
         ? item.name
         : formatMessage({ id: locale, defaultMessage: item.name });
-      const result = { ...item, name, locale, authority: item.authority || parentAuthority };
+      const result = {
+        ...item, name, locale, authority: item.authority || parentAuthority,
+      };
       if (item.children && item.children.length > 0) {
         result.children = formatter(item.children, result.authority, locale);
       } else {

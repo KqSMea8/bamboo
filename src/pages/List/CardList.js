@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'dva';
-import { Card, Button, Icon, List } from 'antd';
+import {
+  Card, Button, Icon, List,
+} from 'antd';
 
 import Ellipsis from '@/components/Ellipsis';
 import PageHeaderWrapper from '@/components/PageHeaderWrapper';
@@ -66,30 +68,31 @@ class CardList extends PureComponent {
           <List
             rowKey="id"
             loading={loading}
-            grid={{ gutter: 24, lg: 3, md: 2, sm: 1, xs: 1 }}
+            grid={{
+              gutter: 24, lg: 3, md: 2, sm: 1, xs: 1,
+            }}
             dataSource={['', ...list]}
-            renderItem={item =>
-              item ? (
-                <List.Item key={item.id}>
-                  <Card hoverable className={styles.card} actions={[<a>操作一</a>, <a>操作二</a>]}>
-                    <Card.Meta
-                      avatar={<img alt="" className={styles.cardAvatar} src={item.avatar} />}
-                      title={<a>{item.title}</a>}
-                      description={
-                        <Ellipsis className={styles.item} lines={3}>
-                          {item.description}
-                        </Ellipsis>
+            renderItem={item => (item ? (
+              <List.Item key={item.id}>
+                <Card hoverable className={styles.card} actions={[<a>操作一</a>, <a>操作二</a>]}>
+                  <Card.Meta
+                    avatar={<img alt="" className={styles.cardAvatar} src={item.avatar} />}
+                    title={<a>{item.title}</a>}
+                    description={
+                      <Ellipsis className={styles.item} lines={3}>
+                        {item.description}
+                      </Ellipsis>
                       }
-                    />
-                  </Card>
-                </List.Item>
-              ) : (
-                <List.Item>
-                  <Button type="dashed" className={styles.newButton}>
-                    <Icon type="plus" /> 新增产品
-                  </Button>
-                </List.Item>
-              )
+                  />
+                </Card>
+              </List.Item>
+            ) : (
+              <List.Item>
+                <Button type="dashed" className={styles.newButton}>
+                  <Icon type="plus" /> 新增产品
+                </Button>
+              </List.Item>
+            ))
             }
           />
         </div>

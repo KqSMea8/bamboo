@@ -15,8 +15,8 @@ export default {
   'app.register.get-verification-code': 'Recuperar código',
   'app.register.sign-in': 'Já tem uma conta?',
   'app.register-result.msg': 'Conta：registrada em {email}',
-  'app.register-result.activation-email':
-    'Um email de ativação foi enviado para o seu email e é válido por 24 horas. Por favor entre no seu email e clique no link de ativação da conta.',
+  'app.register-result.activation-email': `Um email de ativação foi enviado para o seu email e é válido por 24 horas.
+          Por favor entre no seu email e clique no link de ativação da conta.`,
   'app.register-result.back-home': 'Voltar ao Início',
   'app.register-result.view-mailbox': 'Visualizar a caixa de email',
   'validation.email.required': 'Por favor insira seu email!',

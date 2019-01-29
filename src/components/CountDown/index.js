@@ -93,7 +93,7 @@ class CountDown extends Component {
             if (onEnd) {
               onEnd();
             }
-          }
+          },
         );
       } else {
         lastTime -= this.interval;
@@ -103,7 +103,7 @@ class CountDown extends Component {
           },
           () => {
             this.tick();
-          }
+          },
         );
       }
     }, this.interval);
